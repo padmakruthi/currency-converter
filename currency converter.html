@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Currency Converter</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: 	#000000;
+            text-align: center;
+            padding: 50px;
+        }
+        .converter {
+            background-color:white ;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            display: inline-block;
+        }
+        input, select {
+            padding: 20px;
+            margin: 20px;
+            width: 200px;
+        }
+    </style>
+</head>
+<body>
+    <div class="converter">
+        <h1>Currency Converter</h1>
+        <form id="currency-form">
+            <label for="amount">Amount:</label>
+            <input type="number" id="amount" name="amount" required>
+
+            <label for="from">From:</label>
+            <select id="from" name="from">
+                <option value="INR">INR</option>
+                <option value="USD">USD</option>
+                <option value="EUR">Euro</option>
+            </select>
+
+            <label for="to">To:</label>
+            <select id="to" name="to">
+                <option value="INR">INR</option>
+                <option value="USD">USD</option>
+                <option value="EUR">Euro</option>
+            </select>
+
+            <br>
+            <button type="button" onclick="convertCurrency()">Convert</button>
+        </form>
+
+        <h2 id="result"></h2>
+    </div>
+
+    <script>
+        function convertCurrency() {
+            const amount = parseFloat(document.getElementById('amount').value);
+            const fromCurrency = document.getElementById('from').value;
+            const toCurrency = document.getElementById('to').value;
+            let conversionRate = 1;
+
+            // Hardcoded conversion rates
+            if (fromCurrency === 'INR' && toCurrency === 'USD') {
+                conversionRate = 1 / 83.93;
+            } else if (fromCurrency === 'INR' && toCurrency === 'EUR') {
+                conversionRate = 1 / 92.02;
+            } else if (fromCurrency === 'USD' && toCurrency === 'INR') {
+                conversionRate = 83.93;
+            } else if (fromCurrency === 'EUR' && toCurrency === 'INR') {
+                conversionRate = 92.02;
+            }
+
+            const convertedAmount = amount * conversionRate;
+            document.getElementById('result').textContent = `${amount} ${fromCurrency} = ${convertedAmount.toFixed(2)} ${toCurrency}`;
+        }
+    </script>
+</body>
+</html>
